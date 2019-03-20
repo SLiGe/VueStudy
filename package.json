@@ -1,0 +1,22 @@
+{
+  "name": "vueStudy",
+  "version": "1.0.0",
+  "description": "This is a Vue project.",
+  "main": "vue.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SLiGe/VueStudy.git"
+  },
+  "author": "LiGe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SLiGe/VueStudy/issues"
+  },
+  "homepage": "https://github.com/SLiGe/VueStudy#readme",
+  "dependencies": {
+    "vue": "^2.6.9"
+  }
+}

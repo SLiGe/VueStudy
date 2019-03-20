@@ -53,7 +53,7 @@ var app6 = new Vue({
 Vue.component('todo-item',{
     props: ['todo'],
     template:'<li>{{todo.text}}</li>'
-})
+});
 
 var app7 = new Vue({
     el:"#app-7",
@@ -64,4 +64,27 @@ var app7 = new Vue({
             {id:2,text:'黄瓜'}
         ]
     }
+});
+
+var app8 = new Vue({
+    el:'#app-8',
+    data:{
+        movies:[]
+    },
+    methods: {
+        getMovies : function getFilm(){
+            this.$http.post('http://127.0.0.1:8081/niuren/findMovies',{
+                "cno": "3",
+                "movieName": "",
+                "pageSize": 3
+              }).then(function(res){
+                //document.write(res.body);    
+                this.movies = res.body.data
+                console.log(res.body.data);
+            },function(res){
+                console.log(res.status);
+            });
+        }
+    }
+        
 })
