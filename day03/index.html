@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Day03</title>
+
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <!-- 表单双向数据绑定 -->
+    <div id="app">
+        <input type="text" v-model='username' placeholder="输入吧" />
+        <p>{{username}}</p>
+        <select v-model.number="level">
+            <option value="1">VIP1</option>
+            <option value="2">VIP2</option>
+            <option value="3">VIP3</option>
+        </select>
+        <p>{{level}}</p>
+        <p>
+            品名:{{name}}<br/>
+            价格:<input v-model.number="price" type="number" step="1" /> <br/>
+            数量:<input v-model.number="number" type="number" step="1" /> <br/>
+        </p>
+            金额:{{price*number}} <!--不建议--><br/>
+            金额:{{total}} 元<br/>
+            金额:{{total1()}} 元<br/>
+            <p v-if='on'>我就是一个测试的if</p>
+            <p v-show="seen">我是一个测试的show</p>
+        
+    </div>
+
+
+    <script>
+        this.setInterval(() => {
+            vm.on = false;
+        }, 5000);
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                username: "",
+                level: '',
+                userList: ['admin', 'root'],
+                number:0,
+                price:0,
+                on:true,
+                seen:true,
+                name:'黄三'
+            },
+            //计算属性/派生
+            computed: {
+                total:function(){
+                    return this.price * this.number;
+                }
+            },
+            methods: {
+                total1:function(){
+                    return this.price * this.number;
+                }
+            },
+            watch: {
+                username: function (newValue) {
+                    this.userList.forEach(element => {
+                        if (element === newValue) {
+                            alert("已存在");
+                            document.getElementsByTagName('input').focus();
+                        }
+                    });
+                },
+                level: function (newValue) {
+                    switch (newValue) {
+                        case 1:
+                            alert(1);
+                            break;
+                        case 2:
+                            alert(2);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>
