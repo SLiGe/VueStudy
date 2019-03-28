@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>事件绑定</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+        <div id="app">
+         <textarea  v-model="text" @input.delete='delCount' @keyup ='count' id="" cols="30" rows="10">{{text}}</textarea>
+         <p>{{num}}</p>
+        </div>
+
+    <script>
+    let vm = new Vue({
+        el:'#app',
+        data: {
+            num:100,
+            lazyWords:['SB','约炮'],
+            text:'',
+        },
+        methods: {
+            count:function(){
+                  return this.num === 0 ? false :this.num--;
+            },
+            delCount:function(){
+                return this.num === 100 ? false : this.num ++;
+            }
+        },
+        watch: {
+            text:function (value) { 
+                this.lazyWords.forEach(element => {
+                     if (value.indexOf(element ) !== -1) {
+                         alert('含有非法字符');
+                         location.reload();
+                     }
+                 });  
+             }
+             
+        }
+    })
+    </script>
+</body>
+</html>
