@@ -9,6 +9,9 @@
 <div id="app1">
 <global-component></global-component>
 </div>
+ <div id="app2">
+     <local-component></local-component>
+ </div>
 
     <script src="../vue.js"></script>
     <script>
@@ -26,7 +29,21 @@
         }
     );
     let vm1 = new Vue({
-        el:'#app1'
+        el:'#app2',
+        components:{
+            /*组件名称不能大写*/
+            'local-component':{
+                data() {
+                    return {
+                        site:"www.html.cc",
+                        myStyle:{'color':'red','fontSize':'15'}
+                    };
+                },
+                template: '<div>欢迎来到{{site}} <span v-bind:style="myStyle"></span></div>'
+            },
+
+        }
+
     })
     </script>
 </body>

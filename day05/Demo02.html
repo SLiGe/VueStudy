@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>子组件与父组件通讯</title>
+</head>
+<body>
+
+<div id="app">
+ <local-component :lesson="nav" :link="lesson"></local-component>
+    <hr>
+    <global-component :lesson="nav" :link="lesson"></global-component>
+</div>
+
+<script src="../vue.js"></script>
+<script>
+    /*全局组件*/
+    Vue.component(
+        'global-component',{
+            props:['lesson','link'],
+            template: '<p><ul><li v-for="item in lesson">{{item}}</li></ul>{{link}}</p>'
+    }
+    )
+    let vm = new Vue({
+        el:'#app',
+        data(){
+            return {
+                nav:['首页','视频','直播'],
+                lesson:'vue.js'
+            }
+        },
+
+        /*局部组件*/
+        components:{
+            'local-component':{
+                props:['lesson','link'],
+                template:'<p><ul><li v-for="item in lesson">{{item}}</li></ul>{{link}}</p>'
+            }
+        }
+
+    })
+</script>
+</body>
+</html>

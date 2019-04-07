@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>子组件传递到父组件</title>
+</head>
+<body>
+    <div id="app">
+        <local-component @getdata="getdata"></local-component>
+        <ul>
+            <li v-for="item in userInfo">{{item}}</li>
+        </ul>
+    </div>
+<script src="../vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data() {
+            return {
+                userInfo:[]
+            };
+        },
+
+        components:{
+            'local-component':{
+              data() {
+                  return {
+                      name:'admin',
+                      email:'admin@qqri.cc'
+                  };
+              },
+                template:'<button @click="send">向父组件发送组件</button>',
+                
+                methods:{
+                  send:function () {
+                      this.$emit('getdata',[this.name,this.email]);
+                  }
+                }
+            },
+        },
+
+        //实例方法
+        methods: {
+            getdata:function (value) {
+                alert(value);
+                value.forEach(function (item) {
+                    this.userInfo.push(item)
+                },this)
+            }
+        }
+
+    })
+</script>
+</body>
+</html>

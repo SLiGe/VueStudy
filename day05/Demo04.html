@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>同级组件之间的数据传递</title>
+</head>
+<body>
+<div id="app">
+<my-component1></my-component1>
+    <my-component2></my-component2>
+    <my-component3>
+        <p slot="domain">www.qqri.cc</p>
+    </my-component3>
+    <my-component4>
+        <p>www.qqri.cc</p>
+    </my-component4>
+</div>
+</body>
+<script src="../vue.js"></script>
+<script>
+    /*中间Vue实例*/
+    let middle = new Vue();
+
+    let vm = new Vue({
+        el:'#app',
+        components:{
+            'my-component1':{
+                data() {
+                    return {
+                        data:[0,1,2,3],
+                    };
+                },
+                template:'<button @click="change">换一种</button>',
+                methods:{
+                    change:function () {
+                        middle.$emit('getverify',this.data)
+                    }
+                }
+            },
+            'my-component2':{
+                data() {
+                    return {
+                        verify:['A23B','AB5G','GH64','AAV8'],
+                        //初始值
+                        code:'9537'
+                    };
+                },
+                template:'<p style="text-align: center;background-color: #5296fa;width: 60px">{{code}}</p>',
+
+                mounted:function () {
+                    let current = this;
+                    middle.$on('getverify',function (index) {
+                        // alert(index);
+                        //随机获取数组下标
+                        let n = index[Math.floor(Math.random()*index.length)];
+                        current.code = current.verify[n];
+                    })
+                },
+                },
+
+            "my-component3":{
+                template:`<div><slot name="domain"></slot></div>`
+            },
+            "my-component4":{
+                template:`<div><slot></slot></div>`
+            },
+            }
+
+    })
+
+</script>
+</html>
