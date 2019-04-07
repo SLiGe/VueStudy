@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>全局组件学习</title>
+</head>
+<body>
+    
+<div id="app1">
+<global-component></global-component>
+</div>
+
+    <script src="../vue.js"></script>
+    <script>
+    Vue.component("global-component",
+        {
+            data() {
+                return {
+                    site:"www.niuren.com",
+                    source:["html","Java","NodeJs"]
+                };
+            },
+
+            //组件注册
+            template:'<div><p>欢迎到{{site}}</p><ul v-for="item in source"><li>{{item}}</li></ul></div>'
+        }
+    );
+    let vm1 = new Vue({
+        el:'#app1'
+    })
+    </script>
+</body>
+</html>
